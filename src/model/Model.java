@@ -1,129 +1,73 @@
 package model;
 
 import java.io.File;
-import model.cua.*;
-import model.huffman.NodeHuffman;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Classe que encapsula l'estat de l'aplicació.
- * Conté les referències als fitxers (original, comprimit, descomprimit),
- * així com les estadístiques de compressió i la configuració del tipus de cua.
- *
- * També actua com a font d'informació per a la vista i altres components,
- * mantenint l'estructura del patró MVC.
- *
- * @author tonitorres
- */
 public class Model {
+    private List<String> idiomes;
+    private final List<Idioma> diccionaris;
 
-    private File fitxerOriginal;
-    private File fitxerComprès;
-    private File fitxerDescomprès;
-
-    private long tempsCompressioMs;
-    private double longitudMitjanaCodi;
-    private double taxaCompressio;
-
-    private String missatgeInformatiu;
-
-    private TipusCua tipusCua;
-
-    private NodeHuffman arrelHuffman;
-
-    /**
-     * Constructor per defecte.
-     * Inicialitza el tipus de cua per defecte com a heap binari.
-     */
     public Model() {
-        tipusCua = TipusCua.BINARY_HEAP;
+        diccionaris = new ArrayList<>();
     }
 
-    /**
-     * Crea una instància d'una cua de prioritats segons el tipus seleccionat.
-     * Aquesta cua serà utilitzada per a la construcció de l'arbre de Huffman.
-     *
-     * @return una instància de CuaPrioritat segons el valor actual de tipusCua.
-     */
-    public CuaPrioritat crearCua() {
-        return switch (tipusCua) {
-            case BINARY_HEAP ->
-                new CuaBinaryHeap(16);
-            case FIBONACCI_HEAP ->
-                new CuaFibonacciHeap();
-            case ORDENADA ->
-                new LlistaOrdenada();
-            case NO_ORDENADA ->
-                new LlistaNoOrdenada();
-            default ->
-                new CuaBinaryHeap(16); // per seguretat
-        };
+    public List<String> getIdiomes() {
+        return idiomes;
     }
 
-    public void setTipusCua(TipusCua tipus) {
-        tipusCua = tipus;
+    public void setIdiomes(List<String> idiomes) {
+        this.idiomes = idiomes;
     }
 
-    public long getTempsCompressioMs() {
-        return tempsCompressioMs;
+    public List<ResultatComparacio> compararIdiomesSeleccionats() {
+        System.out.println("Comencant la comparacio");
+
+        carregarDiccionaris();
+
+        List<ResultatComparacio> resultats = new ArrayList<>();
+
+        for (int i = 0; i < diccionaris.size(); i++) {
+            for (int j = i + 1; j < diccionaris.size(); j++) {
+                Idioma idiomaA = diccionaris.get(i);
+                Idioma idiomaB = diccionaris.get(j);
+
+                if (idiomaA != null && idiomaB != null) {
+                    ResultatComparacio resultat = ComparadorIdiomes.comparar(idiomaA, idiomaB);
+                    resultats.add(resultat);
+                    System.out.println(resultat);
+                }
+            }
+        }
+
+        return resultats;
     }
 
-    public void setTempsCompressioMs(long valor) {
-        tempsCompressioMs = valor;
+    public void carregarDiccionaris() {
+        diccionaris.clear();
+
+        File carpeta = new File("diccionaris");
+
+        File[] fitxers = carpeta.listFiles((dir, name) ->
+            idiomes.contains(name.replace(".txt", ""))
+        );
+
+        for (File fitxer : fitxers) {
+            try {
+                System.out.println("Carregant el fixter " + fitxer.getName());
+
+
+                List<String> paraules = Files.readAllLines(fitxer.toPath());
+                String nom = fitxer.getName().substring(0, 3);
+                diccionaris.add(new Idioma(nom, paraules));
+
+                System.out.println("Carregat!");
+            } catch (IOException e) {
+                System.out.println("Error llegint el fitxer: " + fitxer.getName());
+            }
+        }
     }
 
-    public double getLongitudMitjanaCodi() {
-        return longitudMitjanaCodi;
-    }
-
-    public void setLongitudMitjanaCodi(double valor) {
-        longitudMitjanaCodi = valor;
-    }
-
-    public double getTaxaCompressio() {
-        return taxaCompressio;
-    }
-
-    public void setTaxaCompressio(double valor) {
-        taxaCompressio = valor;
-    }
-
-    public File getFitxerOriginal() {
-        return fitxerOriginal;
-    }
-
-    public void setFitxerOriginal(File fitxer) {
-        fitxerOriginal = fitxer;
-    }
-
-    public File getFitxerComprès() {
-        return fitxerComprès;
-    }
-
-    public void setFitxerComprès(File fitxer) {
-        fitxerComprès = fitxer;
-    }
-
-    public File getFitxerDescomprès() {
-        return fitxerDescomprès;
-    }
-
-    public void setFitxerDescomprès(File fitxer) {
-        fitxerDescomprès = fitxer;
-    }
-
-    public NodeHuffman getArrelHuffman() {
-        return arrelHuffman;
-    }
-
-    public void setArrelHuffman(NodeHuffman arrel) {
-        arrelHuffman = arrel;
-    }
-
-    public String getMissatge() {
-        return missatgeInformatiu;
-    }
-
-    public void setMissatge(String missatge) {
-        missatgeInformatiu = missatge;
-    }
 }
