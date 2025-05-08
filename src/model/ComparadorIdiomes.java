@@ -1,34 +1,40 @@
 package model;
 
-import java.util.List;
-
 /**
  * Classe per comparar dues llistes de paraules d'idiomes diferents.
  */
 public class ComparadorIdiomes {
 
     public static ResultatComparacio comparar(Idioma a, Idioma b) {
+        double timeA = System.nanoTime();
+
+        System.out.println("Començant el procés de comparació");
+
         double sumaDistAB = a.getParaules().parallelStream()
-            .mapToInt(paraulaA -> b.getParaules().stream()
+                .mapToInt(paraulaA -> b.getParaules().stream()
                 .mapToInt(paraulaB -> distanciaLevenshtein(paraulaA, paraulaB))
                 .min()
                 .orElse(Integer.MAX_VALUE))
-            .sum();
+                .sum();
 
-        System.out.println("Finalitzada la primera part");
+        System.out.println("Finalitzada la primera part, temps de moment: " + (System.nanoTime() - timeA) / 1_000_000 + "s");
 
         double sumaDistBA = b.getParaules().parallelStream()
-            .mapToInt(paraulaB -> a.getParaules().stream()
+                .mapToInt(paraulaB -> a.getParaules().stream()
                 .mapToInt(paraulaA -> distanciaLevenshtein(paraulaB, paraulaA))
                 .min()
                 .orElse(Integer.MAX_VALUE))
-            .sum();
+                .sum();
 
         double mitjaA = sumaDistAB / a.getParaules().size();
         double mitjaB = sumaDistBA / b.getParaules().size();
         double distanciaFinal = Math.sqrt(Math.pow(mitjaA, 2) + Math.pow(mitjaB, 2));
 
-        return new ResultatComparacio(a.getNom(), b.getNom(), distanciaFinal);
+        ResultatComparacio resultat = new ResultatComparacio(a.getNom(), b.getNom(), distanciaFinal);
+
+        System.out.println("Finalitzada la comparació, temps total: " + (System.nanoTime() - timeA) / 1_000_000 + "s, resultat: " + resultat);
+
+        return resultat;
     }
 
     private static int distanciaLevenshtein(String str1, String str2) {
@@ -51,9 +57,9 @@ public class ComparadorIdiomes {
                 int cost = (str1.charAt(i - 1) == str2.charAt(j - 1)) ? 0 : 1;
 
                 d[i][j] = Math.min(
-                    Math.min(d[i - 1][j] + 1,      // Esborrar
-                             d[i][j - 1] + 1),     // Inserir
-                    d[i - 1][j - 1] + cost         // Substituir
+                        Math.min(d[i - 1][j] + 1, // Esborrar
+                                d[i][j - 1] + 1), // Inserir
+                        d[i - 1][j - 1] + cost // Substituir
                 );
             }
         }
