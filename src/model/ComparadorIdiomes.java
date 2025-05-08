@@ -7,42 +7,22 @@ import java.util.List;
  */
 public class ComparadorIdiomes {
 
-public static ResultatComparacio comparar(Idioma a, Idioma b) {
-        double sumaDistAB = 0;
-        int comptadorAB = 0;
+    public static ResultatComparacio comparar(Idioma a, Idioma b) {
+        double sumaDistAB = a.getParaules().parallelStream()
+            .mapToInt(paraulaA -> b.getParaules().stream()
+                .mapToInt(paraulaB -> distanciaLevenshtein(paraulaA, paraulaB))
+                .min()
+                .orElse(Integer.MAX_VALUE))
+            .sum();
 
-        System.out.println("Tamany idioma A: " + a.getParaules().size() + " Tamany idioma B: " + b.getParaules().size());
+        System.out.println("Finalitzada la primera part");
 
-        for (String paraulaA : a.getParaules()) {
-            int minDist = Integer.MAX_VALUE;
-            for (String paraulaB : b.getParaules()) {
-                int dist = distanciaLevenshtein(paraulaA, paraulaB);
-                if (dist < minDist) minDist = dist;
-
-                comptadorAB++;
-                if (comptadorAB % 1000 == 0) {
-                    System.out.println("Comparant " + a.getNom() + " vs " + b.getNom() + " → " + comptadorAB + " comparacions");
-                }
-            }
-            sumaDistAB += minDist;
-        }
-
-        double sumaDistBA = 0;
-        int comptadorBA = 0;
-
-        for (String paraulaB : b.getParaules()) {
-            int minDist = Integer.MAX_VALUE;
-            for (String paraulaA : a.getParaules()) {
-                int dist = distanciaLevenshtein(paraulaB, paraulaA);
-                if (dist < minDist) minDist = dist;
-
-                comptadorBA++;
-                if (comptadorBA % 1000 == 0) {
-                    System.out.println("Comparant " + b.getNom() + " vs " + a.getNom() + " → " + comptadorBA + " comparacions");
-                }
-            }
-            sumaDistBA += minDist;
-        }
+        double sumaDistBA = b.getParaules().parallelStream()
+            .mapToInt(paraulaB -> a.getParaules().stream()
+                .mapToInt(paraulaA -> distanciaLevenshtein(paraulaB, paraulaA))
+                .min()
+                .orElse(Integer.MAX_VALUE))
+            .sum();
 
         double mitjaA = sumaDistAB / a.getParaules().size();
         double mitjaB = sumaDistBA / b.getParaules().size();

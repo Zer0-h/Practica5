@@ -31,8 +31,12 @@ public class Controlador implements Notificar {
         vista = new Vista(this);
     }
 
-    private void compararIdiomes() {
-        model.compararIdiomesSeleccionats();
+    private void comparaDos() {
+        model.compararDos();
+    }
+
+    private void comparaTots() {
+        model.compararTots();
     }
 
     public Model getModel() {
@@ -42,7 +46,8 @@ public class Controlador implements Notificar {
     @Override
     public void notificar(Notificacio notificacio) {
         switch (notificacio) {
-            case COMPARAR_IDIOMES -> compararIdiomes();
+            case COMPARAR_DOS -> comparaDos();
+            case COMPARAR_TOTS -> comparaTots();
         }
     }
 }

@@ -5,5 +5,6 @@ package controlador;
  * Defineix accions que poden ocórrer entre Vista, Model i Controlador.
  */
 public enum Notificacio {
-    COMPARAR_IDIOMES,
+    COMPARAR_TOTS,
+    COMPARAR_DOS
 }
