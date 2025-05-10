@@ -48,8 +48,8 @@ public class Controlador implements Notificar {
         switch (notificacio) {
             case COMPARAR_DOS -> comparaDos();
             case COMPARAR_TOTS -> comparaTots();
-            case FIN_COMPARAR_DOS -> System.out.println("XD");
-            case FIN_COMPARAR_TOTS -> System.out.println("XD");
+            case FIN_COMPARAR_DOS ->  vista.notificar(Notificacio.MOSTRA_GRAF_DOS);
+            case FIN_COMPARAR_TOTS -> vista.notificar(Notificacio.MOSTRA_GRAF_TOTS);
         }
     }
 }

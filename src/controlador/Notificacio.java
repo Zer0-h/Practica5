@@ -8,5 +8,7 @@ public enum Notificacio {
     COMPARAR_TOTS,
     COMPARAR_DOS,
     FIN_COMPARAR_DOS,
-    FIN_COMPARAR_TOTS
+    FIN_COMPARAR_TOTS,
+    MOSTRA_GRAF_TOTS,
+    MOSTRA_GRAF_DOS,
 }

@@ -4,17 +4,18 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Zer0/Documents/GitHub/Practica5/src/model/ComparadorIdiomes.java</file>
-            <file>file:/C:/Users/Zer0/Documents/GitHub/Practica5/src/controlador/Controlador.java</file>
             <file>file:/C:/Users/Zer0/Documents/GitHub/Practica5/src/model/Idioma.java</file>
             <file>file:/C:/Users/Zer0/Documents/GitHub/Practica5/src/vista/PanellBotons.java</file>
             <file>file:/C:/Users/Zer0/Documents/GitHub/Practica5/src/model/ProcessComparacio.java</file>
             <file>file:/C:/Users/Zer0/Documents/GitHub/Practica5/src/vista/Vista.java</file>
             <file>file:/C:/Users/Zer0/Documents/GitHub/Practica5/src/model/ProcessComparacioTots.java</file>
-            <file>file:/C:/Users/Zer0/Documents/GitHub/Practica5/src/model/Model.java</file>
             <file>file:/C:/Users/Zer0/Documents/GitHub/Practica5/src/controlador/Notificar.java</file>
             <file>file:/C:/Users/Zer0/Documents/GitHub/Practica5/src/controlador/Notificacio.java</file>
-            <file>file:/C:/Users/Zer0/Documents/GitHub/Practica5/src/model/ResultatComparacio.java</file>
             <file>file:/C:/Users/Zer0/Documents/GitHub/Practica5/src/model/Levenshtein.java</file>
+            <file>file:/C:/Users/Zer0/Documents/GitHub/Practica5/src/controlador/Controlador.java</file>
+            <file>file:/C:/Users/Zer0/Documents/GitHub/Practica5/src/model/Model.java</file>
+            <file>file:/C:/Users/Zer0/Documents/GitHub/Practica5/src/vista/PanellGraf.java</file>
+            <file>file:/C:/Users/Zer0/Documents/GitHub/Practica5/src/model/ResultatComparacio.java</file>
         </group>
     </open-files>
 </project-private>

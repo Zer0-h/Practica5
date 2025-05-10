@@ -17,6 +17,8 @@ public class ComparadorIdiomes {
 
         Levenshtein lev = new Levenshtein();
 
+
+
         double sumaDistAB = a.getParaules().parallelStream()
             .mapToInt(pa -> b.getParaules().stream()
                 .mapToInt(pb -> lev.distancia(pa, pb))
