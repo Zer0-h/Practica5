@@ -2,7 +2,6 @@ package model;
 
 import controlador.Controlador;
 import controlador.Notificacio;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProcessComparacioTots extends Thread {
@@ -30,16 +29,13 @@ public class ProcessComparacioTots extends Thread {
         }
 
         ComparadorIdiomes comparador = new ComparadorIdiomes(true);
-        List<ResultatComparacio> resultats = new ArrayList<>();
 
         for (Idioma altre : diccionaris) {
             if (!altre.getNom().equals(model.getIdiomaOrigen())) {
                 ResultatComparacio resultat = comparador.comparar(origen, altre);
-                resultats.add(resultat);
+                model.addResultatsMultiples(resultat);
+                controlador.notificar(Notificacio.PINTAR_GRAF);
             }
         }
-
-        model.setResultatsMultiples(resultats);
-        controlador.notificar(Notificacio.FIN_COMPARAR_TOTS);
     }
 }

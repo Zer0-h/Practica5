@@ -28,12 +28,16 @@ public class Controlador implements Notificar {
     }
 
     private void comparaDos() {
-       ProcessComparacio process = new ProcessComparacio(this);
+        model.resetResultatsMultiples();
+        vista.notificar(Notificacio.PINTAR_GRAF);
+        ProcessComparacio process = new ProcessComparacio(this);
 
-       process.start();
+        process.start();
     }
 
     private void comparaTots() {
+        model.resetResultatsMultiples();
+        vista.notificar(Notificacio.PINTAR_GRAF);
        ProcessComparacioTots process = new ProcessComparacioTots(this);
 
        process.start();
@@ -48,8 +52,7 @@ public class Controlador implements Notificar {
         switch (notificacio) {
             case COMPARAR_DOS -> comparaDos();
             case COMPARAR_TOTS -> comparaTots();
-            case FIN_COMPARAR_DOS ->  vista.notificar(Notificacio.MOSTRA_GRAF_DOS);
-            case FIN_COMPARAR_TOTS -> vista.notificar(Notificacio.MOSTRA_GRAF_TOTS);
+            case PINTAR_GRAF -> vista.notificar(Notificacio.PINTAR_GRAF);
         }
     }
 }

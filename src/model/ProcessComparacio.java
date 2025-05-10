@@ -22,13 +22,10 @@ public class ProcessComparacio extends Thread {
         Idioma desti = diccionaris.size() > 1 ? diccionaris.get(1) : origen;
 
         if (origen != null && desti != null) {
-            System.out.println("Comparant dos");
-
             ComparadorIdiomes comparador = new ComparadorIdiomes(true);
             ResultatComparacio resultat = comparador.comparar(origen, desti);
-            model.setResultat(resultat);
-            System.out.println("FIN");
-            controlador.notificar(Notificacio.FIN_COMPARAR_DOS);
+            model.setResultatsMultiples(List.of(resultat));
+            controlador.notificar(Notificacio.PINTAR_GRAF);
         } else {
             System.out.println("Error: no s'han pogut carregar els idiomes.");
         }

@@ -6,9 +6,6 @@ import controlador.Notificar;
 import java.awt.BorderLayout;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
-import model.ResultatComparacio;
 
 public class Vista extends JFrame implements Notificar {
 
@@ -37,14 +34,8 @@ public class Vista extends JFrame implements Notificar {
     @Override
     public void notificar(Notificacio notificacio) {
         switch (notificacio) {
-            case MOSTRA_GRAF_TOTS -> {
-                System.out.println("MOSTRAR GRAF TOTS");
+            case PINTAR_GRAF -> {
                 panellGraf.pintarResultats(controlador.getModel().getResultatsMultiples(), controlador.getModel().getIdiomaOrigen());
-            }
-            case MOSTRA_GRAF_DOS -> {
-                System.out.println("MOSTRAR GRAF DOS");
-                ResultatComparacio r = controlador.getModel().getResultat();
-                panellGraf.pintarResultats(List.of(r), controlador.getModel().getIdiomaOrigen()); // Envoltat com a llista
             }
         }
     }
