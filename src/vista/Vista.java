@@ -26,27 +26,7 @@ public class Vista extends JFrame implements Notificar {
         panellBotons = new PanellBotons(controlador);
         add(panellBotons, BorderLayout.NORTH);
 
-        //panellGraf = new PanellGraf(new ArrayList<>());
-        List<ResultatComparacio> resultatsDos = List.of(
-            new ResultatComparacio("cat", "esp", 4.23)
-        );
-
-        List<ResultatComparacio> resultatsTots = List.of(
-            new ResultatComparacio("cat", "esp", 4.23),
-            new ResultatComparacio("cat", "fra", 5.78),
-            new ResultatComparacio("cat", "ita", 6.12),
-            new ResultatComparacio("cat", "por", 7.03),
-            new ResultatComparacio("cat", "eng", 8.41),
-            new ResultatComparacio("cat", "ale", 8.90),
-            new ResultatComparacio("cat", "eus", 9.76),
-            new ResultatComparacio("cat", "nor", 7.88),
-            new ResultatComparacio("cat", "hol", 8.25),
-            new ResultatComparacio("cat", "swe", 9.34)
-        );
-
         panellGraf = new PanellGraf();
-
-        panellGraf.pintarResultats(resultatsTots, "cat");
         add(panellGraf, BorderLayout.CENTER);
 
         setSize(1400, 1200);

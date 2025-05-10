@@ -114,10 +114,20 @@ public class PanellGraf extends JPanel {
                 int mx = (p1.x + p2.x) / 2;
                 int my = (p1.y + p2.y) / 2;
 
-                String text = String.format("%.1f", r.getDistancia());
+                // Calcula un vector perpendicular unitari a la línia
+                int dx = p2.x - p1.x;
+                int dy = p2.y - p1.y;
+                double length = Math.sqrt(dx * dx + dy * dy);
+                double offsetX = -dy / length * 12;
+                double offsetY = dx / length * 12;
+
+                int labelX = (int) (mx + offsetX);
+                int labelY = (int) (my + offsetY);
+
+                String text = String.format("%.3f", r.getDistancia());
                 int w = g2.getFontMetrics().stringWidth(text);
                 g2.setColor(Color.BLACK);
-                g2.drawString(text, mx - w / 2, my - 5); // lleugerament per sobre de la línia
+                g2.drawString(text, labelX - w / 2, labelY);
             }
         }
 

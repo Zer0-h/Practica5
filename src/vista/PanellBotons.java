@@ -5,8 +5,8 @@ import controlador.Notificacio;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import model.Model;
 
 public class PanellBotons extends JPanel {
@@ -16,45 +16,74 @@ public class PanellBotons extends JPanel {
     private final JButton botoUnaComparacio;
     private final JButton botoCompararTots;
 
+    private final Map<String, String> mapaIdiomes; // codi -> nom complet
+
     public PanellBotons(Controlador controlador) {
-        setLayout(new BorderLayout());
+        setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
 
-        List<String> idiomesDisponibles = Arrays.asList("ale", "cat", "eus", "fra", "hol", "eng", "ita", "nor", "por", "esp", "swe");
+        mapaIdiomes = new LinkedHashMap<>();
+        mapaIdiomes.put("ale", "Alemany");
+        mapaIdiomes.put("cat", "Català");
+        mapaIdiomes.put("eus", "Euskera");
+        mapaIdiomes.put("fra", "Francès");
+        mapaIdiomes.put("hol", "Holandès");
+        mapaIdiomes.put("eng", "Anglès");
+        mapaIdiomes.put("ita", "Italià");
+        mapaIdiomes.put("nor", "Noruec");
+        mapaIdiomes.put("por", "Portuguès");
+        mapaIdiomes.put("esp", "Espanyol");
+        mapaIdiomes.put("swe", "Suec");
 
-        // ComboBox per seleccionar idioma origen
-        comboOrigen = new JComboBox<>(idiomesDisponibles.toArray(new String[0]));
-        comboOrigen.setBorder(BorderFactory.createTitledBorder("Idioma Origen"));
+        DefaultComboBoxModel<String> modelOrigen = new DefaultComboBoxModel<>();
+        DefaultComboBoxModel<String> modelDesti = new DefaultComboBoxModel<>();
 
-        // ComboBox per seleccionar idioma destí
-        comboDesti = new JComboBox<>(idiomesDisponibles.toArray(new String[0]));
-        comboDesti.setBorder(BorderFactory.createTitledBorder("Idioma Destí"));
+        for (String codi : mapaIdiomes.keySet()) {
+            modelOrigen.addElement(mapaIdiomes.get(codi));
+            modelDesti.addElement(mapaIdiomes.get(codi));
+        }
 
-        JPanel panellSeleccio = new JPanel(new GridLayout(2, 1));
-        panellSeleccio.add(comboOrigen);
-        panellSeleccio.add(comboDesti);
-        add(panellSeleccio, BorderLayout.NORTH);
+        comboOrigen = new JComboBox<>(modelOrigen);
+        comboOrigen.setPreferredSize(new Dimension(150, 30));
 
-        // Panell de botons
-        JPanel panellBotons = new JPanel(new FlowLayout());
+        comboDesti = new JComboBox<>(modelDesti);
+        comboDesti.setPreferredSize(new Dimension(150, 30));
 
+        // Botons
         botoUnaComparacio = new JButton("Comparar amb un altre idioma");
         botoUnaComparacio.addActionListener(e -> {
             Model model = controlador.getModel();
-
-            model.setIdiomes((String) comboOrigen.getSelectedItem(), (String) comboDesti.getSelectedItem());
+            String origenCodi = obtenirCodi((String) comboOrigen.getSelectedItem());
+            String destiCodi = obtenirCodi((String) comboDesti.getSelectedItem());
+            model.setIdiomes(origenCodi, destiCodi);
             controlador.notificar(Notificacio.COMPARAR_DOS);
         });
 
         botoCompararTots = new JButton("Comparar amb tots els altres");
         botoCompararTots.addActionListener(e -> {
             Model model = controlador.getModel();
-
-            model.setIdiomes((String) comboOrigen.getSelectedItem(), (String) comboDesti.getSelectedItem());
+            String origenCodi = obtenirCodi((String) comboOrigen.getSelectedItem());
+            String destiCodi = obtenirCodi((String) comboDesti.getSelectedItem());
+            model.setIdiomes(origenCodi, destiCodi);
             controlador.notificar(Notificacio.COMPARAR_TOTS);
         });
 
-        panellBotons.add(botoUnaComparacio);
-        panellBotons.add(botoCompararTots);
-        add(panellBotons, BorderLayout.SOUTH);
+        // Afegim tots els components en línia
+        add(new JLabel("Idioma Origen:"));
+        add(comboOrigen);
+        add(Box.createHorizontalStrut(10));
+        add(new JLabel("Idioma Destí:"));
+        add(comboDesti);
+        add(Box.createHorizontalStrut(10));
+        add(botoUnaComparacio);
+        add(botoCompararTots);
+    }
+
+    private String obtenirCodi(String nomComplet) {
+        for (Map.Entry<String, String> entry : mapaIdiomes.entrySet()) {
+            if (entry.getValue().equals(nomComplet)) {
+                return entry.getKey();
+            }
+        }
+        return nomComplet; // fallback per seguretat
     }
 }
