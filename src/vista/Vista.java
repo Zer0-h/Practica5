@@ -60,13 +60,11 @@ public class Vista extends JFrame implements Notificar {
             case MOSTRA_GRAF_TOTS -> {
                 System.out.println("MOSTRAR GRAF TOTS");
                 panellGraf.pintarResultats(controlador.getModel().getResultatsMultiples(), controlador.getModel().getIdiomaOrigen());
-                panellGraf.repaint();
             }
             case MOSTRA_GRAF_DOS -> {
                 System.out.println("MOSTRAR GRAF DOS");
                 ResultatComparacio r = controlador.getModel().getResultat();
                 panellGraf.pintarResultats(List.of(r), controlador.getModel().getIdiomaOrigen()); // Envoltat com a llista
-                panellGraf.repaint();
             }
         }
     }

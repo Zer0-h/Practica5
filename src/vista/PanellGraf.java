@@ -3,6 +3,7 @@ package vista;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -112,8 +113,11 @@ public class PanellGraf extends JPanel {
 
                 int mx = (p1.x + p2.x) / 2;
                 int my = (p1.y + p2.y) / 2;
+
+                String text = String.format("%.1f", r.getDistancia());
+                int w = g2.getFontMetrics().stringWidth(text);
                 g2.setColor(Color.BLACK);
-                g2.drawString(String.format("%.1f", r.getDistancia()), mx, my);
+                g2.drawString(text, mx - w / 2, my - 5); // lleugerament per sobre de la línia
             }
         }
 
@@ -123,11 +127,21 @@ public class PanellGraf extends JPanel {
             String nom = entry.getKey();
             int rNode = 25;
 
-            g2.setColor(nom.equals(idiomaOrigen) ? Color.CYAN : Color.ORANGE);
+            if (nom.equals(idiomaOrigen)) {
+                g2.setColor(new Color(0, 180, 255)); // color especial per a l'origen
+            } else {
+                g2.setColor(Color.LIGHT_GRAY);
+            }
+
             g2.fillOval(p.x - rNode, p.y - rNode, 2 * rNode, 2 * rNode);
             g2.setColor(Color.BLACK);
             g2.drawOval(p.x - rNode, p.y - rNode, 2 * rNode, 2 * rNode);
-            g2.drawString(nom, p.x - 10, p.y + 5);
+
+            // Centrat del text dins el node
+            FontMetrics fm = g2.getFontMetrics();
+            int textWidth = fm.stringWidth(nom);
+            int textHeight = fm.getAscent();
+            g2.drawString(nom, p.x - textWidth / 2, p.y + textHeight / 2 - 2);
         }
     }
 }
