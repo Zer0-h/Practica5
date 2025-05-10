@@ -1,14 +1,10 @@
 package controlador;
 
-import model.ComparadorIdiomes;
-import model.Idioma;
 import model.Model;
-import model.ResultatComparacio;
 import vista.Vista;
 
-import javax.swing.*;
-import java.io.File;
-import java.util.List;
+import model.ProcessComparacio;
+import model.ProcessComparacioTots;
 
 /**
  * Controlador principal del patró MVC.
@@ -32,11 +28,15 @@ public class Controlador implements Notificar {
     }
 
     private void comparaDos() {
-        model.compararDos();
+       ProcessComparacio process = new ProcessComparacio(this);
+
+       process.start();
     }
 
     private void comparaTots() {
-        model.compararTots();
+       ProcessComparacioTots process = new ProcessComparacioTots(this);
+
+       process.start();
     }
 
     public Model getModel() {
@@ -48,6 +48,8 @@ public class Controlador implements Notificar {
         switch (notificacio) {
             case COMPARAR_DOS -> comparaDos();
             case COMPARAR_TOTS -> comparaTots();
+            case FIN_COMPARAR_DOS -> System.out.println("XD");
+            case FIN_COMPARAR_TOTS -> System.out.println("XD");
         }
     }
 }

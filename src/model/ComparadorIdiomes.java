@@ -1,69 +1,45 @@
 package model;
 
-/**
- * Classe per comparar dues llistes de paraules d'idiomes diferents.
- */
 public class ComparadorIdiomes {
 
-    public static ResultatComparacio comparar(Idioma a, Idioma b) {
-        double timeA = System.nanoTime();
+    private boolean verbose;
 
-        System.out.println("Començant el procés de comparació");
+    public ComparadorIdiomes(boolean verbose) {
+        this.verbose = verbose;
+    }
+
+    public ResultatComparacio comparar(Idioma a, Idioma b) {
+        long start = System.nanoTime();
+
+        if (verbose) {
+            System.out.println("Comparant " + a.getNom() + " amb " + b.getNom());
+        }
+
+        Levenshtein lev = new Levenshtein();
 
         double sumaDistAB = a.getParaules().parallelStream()
-                .mapToInt(paraulaA -> b.getParaules().stream()
-                .mapToInt(paraulaB -> distanciaLevenshtein(paraulaA, paraulaB))
+            .mapToInt(pa -> b.getParaules().stream()
+                .mapToInt(pb -> lev.distancia(pa, pb))
                 .min()
                 .orElse(Integer.MAX_VALUE))
-                .sum();
-
-        System.out.println("Finalitzada la primera part, temps de moment: " + (System.nanoTime() - timeA) / 1_000_000 + "s");
+            .sum();
 
         double sumaDistBA = b.getParaules().parallelStream()
-                .mapToInt(paraulaB -> a.getParaules().stream()
-                .mapToInt(paraulaA -> distanciaLevenshtein(paraulaB, paraulaA))
+            .mapToInt(pb -> a.getParaules().stream()
+                .mapToInt(pa -> lev.distancia(pb, pa))
                 .min()
                 .orElse(Integer.MAX_VALUE))
-                .sum();
+            .sum();
 
         double mitjaA = sumaDistAB / a.getParaules().size();
         double mitjaB = sumaDistBA / b.getParaules().size();
-        double distanciaFinal = Math.sqrt(Math.pow(mitjaA, 2) + Math.pow(mitjaB, 2));
+        double dist = Math.sqrt(mitjaA * mitjaA + mitjaB * mitjaB);
 
-        ResultatComparacio resultat = new ResultatComparacio(a.getNom(), b.getNom(), distanciaFinal);
-
-        System.out.println("Finalitzada la comparació, temps total: " + (System.nanoTime() - timeA) / 1_000_000 + "s, resultat: " + resultat);
-
-        return resultat;
-    }
-
-    private static int distanciaLevenshtein(String str1, String str2) {
-        int m = str1.length();
-        int n = str2.length();
-        int[][] d = new int[m + 1][n + 1];
-
-        // Inicialitzar primera fila i primera columna
-        for (int i = 0; i <= m; i++) {
-            d[i][0] = i;
+        if (verbose) {
+            long end = System.nanoTime();
+            System.out.println("Temps: " + ((end - start) / 1_000_000) + " ms");
         }
 
-        for (int j = 0; j <= n; j++) {
-            d[0][j] = j;
-        }
-
-        // Omplir la matriu amb els costos mínims
-        for (int i = 1; i <= m; i++) {
-            for (int j = 1; j <= n; j++) {
-                int cost = (str1.charAt(i - 1) == str2.charAt(j - 1)) ? 0 : 1;
-
-                d[i][j] = Math.min(
-                        Math.min(d[i - 1][j] + 1, // Esborrar
-                                d[i][j - 1] + 1), // Inserir
-                        d[i - 1][j - 1] + cost // Substituir
-                );
-            }
-        }
-
-        return d[m][n];
+        return new ResultatComparacio(a.getNom(), b.getNom(), dist);
     }
 }

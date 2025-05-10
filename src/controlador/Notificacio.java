@@ -6,5 +6,7 @@ package controlador;
  */
 public enum Notificacio {
     COMPARAR_TOTS,
-    COMPARAR_DOS
+    COMPARAR_DOS,
+    FIN_COMPARAR_DOS,
+    FIN_COMPARAR_TOTS
 }

@@ -10,11 +10,10 @@ import java.util.List;
 public class Model {
     private String idiomaOrigen;
     private String idiomaDesti;
-
-    private final List<Idioma> diccionaris;
+    private ResultatComparacio resultat;
+    private List<ResultatComparacio> resultatsMultiples;
 
     public Model() {
-        diccionaris = new ArrayList<>();
     }
 
     public void setIdiomes(String iOrigen, String iDesti) {
@@ -22,45 +21,22 @@ public class Model {
         idiomaDesti = iDesti;
     }
 
-    public ResultatComparacio compararDos() {
-        carregarDiccionaris(Arrays.asList(idiomaOrigen, idiomaDesti));
-
-        Idioma origen = diccionaris.get(0);
-        Idioma desti = diccionaris.size() > 1 ? diccionaris.get(1) : origen;
-
-        ResultatComparacio resultat = ComparadorIdiomes.comparar(origen, desti);
-
-        System.out.println(resultat);
-
-        return resultat;
+    public String getIdiomaOrigen() {
+        return idiomaOrigen;
     }
 
-    public List<ResultatComparacio> compararTots() {
-        System.out.println("Comparant " + idiomaOrigen + " amb tots els altres idiomes.");
-
-        List<String> noms = Arrays.asList("ale", "cat", "eng", "esp", "eus", "fra", "hol", "ita", "nor", "por", "swe");
-        carregarDiccionaris(noms);
-
-        Idioma origen = diccionaris.stream()
-            .filter(id -> id.getNom().equals(idiomaOrigen))
-            .findFirst()
-            .orElse(null);
-
-        List<ResultatComparacio> resultats = new ArrayList<>();
-
-        for (Idioma altre : diccionaris) {
-            if (!altre.getNom().equals(idiomaOrigen)) {
-                ResultatComparacio resultat = ComparadorIdiomes.comparar(origen, altre);
-                resultats.add(resultat);
-                System.out.println(resultat);
-            }
-        }
-
-        return resultats;
+    public String getIdiomaDesti() {
+        return idiomaDesti;
     }
+    
+    public ResultatComparacio getResultat() { return resultat; }
+    public void setResultat(ResultatComparacio r) { resultat = r; }
 
-    public void carregarDiccionaris(List<String> idiomes) {
-        diccionaris.clear();
+    public List<ResultatComparacio> getResultatsMultiples() { return resultatsMultiples; }
+    public void setResultatsMultiples(List<ResultatComparacio> r) { resultatsMultiples = r; }
+
+    public List<Idioma> carregarDiccionaris(List<String> idiomes) {
+        List<Idioma> diccionaris = new ArrayList<>();
 
         File carpeta = new File("diccionaris");
 
@@ -82,5 +58,7 @@ public class Model {
                 System.out.println("Error llegint el fitxer: " + fitxer.getName());
             }
         }
+
+        return diccionaris;
     }
 }
