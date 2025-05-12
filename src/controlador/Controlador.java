@@ -28,7 +28,7 @@ public class Controlador implements Notificar {
     }
 
     private void comparaDos() {
-        model.resetResultatsMultiples();
+        model.resetResultats();
         vista.notificar(Notificacio.PINTAR_GRAF);
         ProcessComparacio process = new ProcessComparacio(this);
 
@@ -36,7 +36,7 @@ public class Controlador implements Notificar {
     }
 
     private void comparaTots() {
-        model.resetResultatsMultiples();
+        model.resetResultats();
         vista.notificar(Notificacio.PINTAR_GRAF);
        ProcessComparacioTots process = new ProcessComparacioTots(this);
 

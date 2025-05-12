@@ -14,7 +14,7 @@ public class Vista extends JFrame implements Notificar {
     private final PanellGraf panellGraf;
 
     public Vista(Controlador controlador) {
-        super("Comparador Lèxic d'Idiomes");
+        super("Diferenciador d'idiomes");
         this.controlador = controlador;
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

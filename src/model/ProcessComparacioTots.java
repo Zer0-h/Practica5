@@ -33,7 +33,7 @@ public class ProcessComparacioTots extends Thread {
         for (Idioma altre : diccionaris) {
             if (!altre.getNom().equals(model.getIdiomaOrigen())) {
                 ResultatComparacio resultat = comparador.comparar(origen, altre);
-                model.addResultatsMultiples(resultat);
+                model.afegirResultats(resultat);
                 controlador.notificar(Notificacio.PINTAR_GRAF);
             }
         }

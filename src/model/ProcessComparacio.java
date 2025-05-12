@@ -24,7 +24,7 @@ public class ProcessComparacio extends Thread {
         if (origen != null && desti != null) {
             ComparadorIdiomes comparador = new ComparadorIdiomes(true);
             ResultatComparacio resultat = comparador.comparar(origen, desti);
-            model.setResultatsMultiples(List.of(resultat));
+            model.setResultats(List.of(resultat));
             controlador.notificar(Notificacio.PINTAR_GRAF);
         } else {
             System.out.println("Error: no s'han pogut carregar els idiomes.");

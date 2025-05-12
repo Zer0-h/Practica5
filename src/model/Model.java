@@ -10,7 +10,7 @@ import java.util.List;
 public class Model {
     private String idiomaOrigen;
     private String idiomaDesti;
-    private List<ResultatComparacio> resultatsMultiples;
+    private List<ResultatComparacio> resultats;
 
     public Model() {
     }
@@ -28,13 +28,13 @@ public class Model {
         return idiomaDesti;
     }
 
-    public List<ResultatComparacio> getResultatsMultiples() { return resultatsMultiples; }
+    public List<ResultatComparacio> getResultatsMultiples() { return resultats; }
 
-    public void resetResultatsMultiples() { resultatsMultiples = new ArrayList<>(); }
+    public void resetResultats() { resultats = new ArrayList<>(); }
 
-    public void setResultatsMultiples(List<ResultatComparacio> r) { resultatsMultiples = r; }
+    public void setResultats(List<ResultatComparacio> r) { resultats = r; }
 
-    public void addResultatsMultiples(ResultatComparacio r) { resultatsMultiples.add(r); }
+    public void afegirResultats(ResultatComparacio r) { resultats.add(r); }
 
 
     public List<Idioma> carregarDiccionaris(List<String> idiomes) {
