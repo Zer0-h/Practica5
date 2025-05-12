@@ -3,8 +3,8 @@ package controlador;
 import model.Model;
 import vista.Vista;
 
-import model.ProcessComparacio;
-import model.ProcessComparacioTots;
+import model.processos.ProcessComparacio;
+import model.processos.ProcessComparacioTots;
 
 /**
  * Controlador principal del patró MVC.
