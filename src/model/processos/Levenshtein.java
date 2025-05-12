@@ -52,8 +52,8 @@ public class Levenshtein {
 
                 // Mínim entre inserció, supressió i substitució
                 curr[j] = Math.min(
-                        Math.min(curr[j - 1] + 1, // Inserció
-                                prev[j] + 1), // Supressió
+                        Math.min(curr[j - 1] + 1,      // Inserció
+                                prev[j] + 1),          // Supressió
                         prev[j - 1] + cost);           // Substitució
             }
 
