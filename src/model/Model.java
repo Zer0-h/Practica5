@@ -84,9 +84,11 @@ public class Model {
     }
 
     /**
-     * Carrega els diccionaris dels idiomes indicats des de la carpeta "diccionaris".
+     * Carrega els diccionaris dels idiomes indicats des de la carpeta
+     * "diccionaris".
      *
      * @param idiomes llista de codis d'idioma
+     *
      * @return llista d'objectes Idioma amb les paraules carregades
      */
     public List<Idioma> carregarDiccionaris(List<String> idiomes) {
@@ -94,8 +96,8 @@ public class Model {
 
         File carpeta = new File("diccionaris");
 
-        File[] fitxers = carpeta.listFiles((dir, name) ->
-            idiomes.contains(name.replace(".txt", ""))
+        File[] fitxers = carpeta.listFiles((dir, name)
+                -> idiomes.contains(name.replace(".txt", ""))
         );
 
         for (File fitxer : fitxers) {

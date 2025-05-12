@@ -19,6 +19,7 @@ public class Levenshtein {
      *
      * @param str1 primera cadena
      * @param str2 segona cadena
+     *
      * @return distància mínima d'edició entre str1 i str2
      */
     public int distancia(String str1, String str2) {
@@ -26,8 +27,12 @@ public class Levenshtein {
         int n = str2.length();
 
         // Casos trivials
-        if (m == 0) return n;
-        if (n == 0) return m;
+        if (m == 0) {
+            return n;
+        }
+        if (n == 0) {
+            return m;
+        }
 
         // Vectors reutilitzables per a les files
         int[] prev = new int[n + 1];
@@ -47,8 +52,8 @@ public class Levenshtein {
 
                 // Mínim entre inserció, supressió i substitució
                 curr[j] = Math.min(
-                        Math.min(curr[j - 1] + 1,      // Inserció
-                                 prev[j] + 1),         // Supressió
+                        Math.min(curr[j - 1] + 1, // Inserció
+                                prev[j] + 1), // Supressió
                         prev[j - 1] + cost);           // Substitució
             }
 

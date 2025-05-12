@@ -3,18 +3,17 @@ package vista;
 import controlador.Controlador;
 import controlador.Notificacio;
 import controlador.Notificar;
-import model.Model;
-
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import model.Model;
 
 /**
  * Classe principal de la interfície gràfica de l’aplicació.
  * Implementa la part visual del patró MVC i rep notificacions del controlador.
  *
  * La finestra principal conté:
- *  - Un panell superior amb selectors i botons per iniciar comparacions.
- *  - Un panell central per representar gràficament les distàncies entre idiomes.
+ * - Un panell superior amb selectors i botons per iniciar comparacions.
+ * - Un panell central per representar gràficament les distàncies entre idiomes.
  *
  * @author tonitorres
  */
@@ -71,7 +70,8 @@ public class Vista extends JFrame implements Notificar {
     @Override
     public void notificar(Notificacio notificacio) {
         switch (notificacio) {
-            case PINTAR_GRAF -> pintarResultats();
+            case PINTAR_GRAF ->
+                pintarResultats();
         }
     }
 }

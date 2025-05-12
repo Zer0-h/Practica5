@@ -13,10 +13,10 @@ package controlador;
 public enum Notificacio {
     /** Inicia la comparació de tots els idiomes amb un idioma d'origen. */
     COMPARAR_TOTS,
-
-    /** Inicia la comparació entre dos idiomes seleccionats. */
+    /** Inicia la
+     * comparació entre dos idiomes seleccionats. */
     COMPARAR_DOS,
-
-    /** Notifica que s'ha d'actualitzar el panell gràfic amb els resultats. */
+    /** Notifica
+     * que s'ha d'actualitzar el panell gràfic amb els resultats. */
     PINTAR_GRAF,
 }

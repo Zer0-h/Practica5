@@ -1,10 +1,9 @@
 package controlador;
 
 import model.Model;
-import vista.Vista;
-
 import model.processos.ProcessComparacio;
 import model.processos.ProcessComparacioTots;
+import vista.Vista;
 
 /**
  * Controlador principal del patró MVC.
@@ -38,9 +37,9 @@ public class Controlador implements Notificar {
     private void comparaTots() {
         model.resetResultats();
         vista.notificar(Notificacio.PINTAR_GRAF);
-       ProcessComparacioTots process = new ProcessComparacioTots(this);
+        ProcessComparacioTots process = new ProcessComparacioTots(this);
 
-       process.start();
+        process.start();
     }
 
     public Model getModel() {
@@ -50,9 +49,12 @@ public class Controlador implements Notificar {
     @Override
     public void notificar(Notificacio notificacio) {
         switch (notificacio) {
-            case COMPARAR_DOS -> comparaDos();
-            case COMPARAR_TOTS -> comparaTots();
-            case PINTAR_GRAF -> vista.notificar(Notificacio.PINTAR_GRAF);
+            case COMPARAR_DOS ->
+                comparaDos();
+            case COMPARAR_TOTS ->
+                comparaTots();
+            case PINTAR_GRAF ->
+                vista.notificar(Notificacio.PINTAR_GRAF);
         }
     }
 }

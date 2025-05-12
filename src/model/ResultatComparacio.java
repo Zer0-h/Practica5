@@ -21,7 +21,8 @@ public class ResultatComparacio {
     private final double distancia;
 
     /**
-     * Constructor que inicialitza un resultat amb els dos idiomes i la distància.
+     * Constructor que inicialitza un resultat amb els dos idiomes i la
+     * distància.
      *
      * @param a codi de l'idioma A (origen)
      * @param b codi de l'idioma B (destí)

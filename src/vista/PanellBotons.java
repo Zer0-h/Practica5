@@ -2,18 +2,19 @@ package vista;
 
 import controlador.Controlador;
 import controlador.Notificacio;
-import model.Model;
-
-import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import javax.swing.*;
+import model.Model;
 
 /**
- * Panell superior que permet seleccionar idiomes i llançar accions de comparació.
+ * Panell superior que permet seleccionar idiomes i llançar accions de
+ * comparació.
  * Forma part de la vista del patró MVC i emet notificacions al controlador.
  *
- * Aquest panell conté dos JComboBox per triar els idiomes i dos botons per iniciar
+ * Aquest panell conté dos JComboBox per triar els idiomes i dos botons per
+ * iniciar
  * una comparació entre dos o entre un i tots els altres idiomes disponibles.
  *
  * @author tonitorres
@@ -36,7 +37,8 @@ public class PanellBotons extends JPanel {
     private final Map<String, String> mapaIdiomes;
 
     /**
-     * Constructor que inicialitza i organitza els components gràfics del panell.
+     * Constructor que inicialitza i organitza els components gràfics del
+     * panell.
      *
      * @param controlador Referència al controlador principal de l’aplicació
      */
@@ -109,6 +111,7 @@ public class PanellBotons extends JPanel {
      * Obté el codi curt associat a un nom complet d’idioma.
      *
      * @param nomComplet nom complet seleccionat al JComboBox
+     *
      * @return codi corresponent (ex: "cat" per "Català")
      */
     private String obtenirCodi(String nomComplet) {

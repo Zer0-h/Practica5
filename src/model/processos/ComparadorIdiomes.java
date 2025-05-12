@@ -23,7 +23,8 @@ public class ComparadorIdiomes {
     /**
      * Constructor que defineix si el mode verbose està activat.
      *
-     * @param verbose true per mostrar detalls a la consola, false en cas contrari
+     * @param verbose true per mostrar detalls a la consola, false en cas
+     *                contrari
      */
     public ComparadorIdiomes(boolean verbose) {
         this.verbose = verbose;
@@ -35,6 +36,7 @@ public class ComparadorIdiomes {
      *
      * @param a idioma A
      * @param b idioma B
+     *
      * @return resultat de la comparació amb la distància final
      */
     public ResultatComparacio comparar(Idioma a, Idioma b) {
@@ -48,19 +50,19 @@ public class ComparadorIdiomes {
 
         // Distància mitjana des de cada paraula d'A cap a B
         double sumaDistAB = a.getParaules().parallelStream()
-            .mapToInt(pa -> b.getParaules().stream()
+                .mapToInt(pa -> b.getParaules().stream()
                 .mapToInt(pb -> lev.distancia(pa, pb))
                 .min()
                 .orElse(Integer.MAX_VALUE))
-            .sum();
+                .sum();
 
         // Distància mitjana des de cada paraula de B cap a A
         double sumaDistBA = b.getParaules().parallelStream()
-            .mapToInt(pb -> a.getParaules().stream()
+                .mapToInt(pb -> a.getParaules().stream()
                 .mapToInt(pa -> lev.distancia(pb, pa))
                 .min()
                 .orElse(Integer.MAX_VALUE))
-            .sum();
+                .sum();
 
         double mitjaA = sumaDistAB / a.getParaules().size();
         double mitjaB = sumaDistBA / b.getParaules().size();

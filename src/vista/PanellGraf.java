@@ -8,18 +8,20 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
-import model.ResultatComparacio;
-
-import javax.swing.*;
 import java.awt.event.*;
 import java.util.*;
+import javax.swing.*;
+import model.ResultatComparacio;
 
 /**
- * Panell que representa visualment un graf de distàncies lèxiques entre idiomes.
- * El panell permet fer zoom amb la roda del ratolí i arrossegar per desplaçar-se.
+ * Panell que representa visualment un graf de distàncies lèxiques entre
+ * idiomes.
+ * El panell permet fer zoom amb la roda del ratolí i arrossegar per
+ * desplaçar-se.
  * Els idiomes es col·loquen en posició circular al voltant del node origen.
  *
- * Cada aresta mostra la distància calculada, i els nodes es dibuixen com cercles.
+ * Cada aresta mostra la distància calculada, i els nodes es dibuixen com
+ * cercles.
  *
  * @author tonitorres
  */
@@ -80,7 +82,7 @@ public class PanellGraf extends JPanel {
     /**
      * Assigna els resultats i l'idioma origen per pintar el graf.
      *
-     * @param resultats llista de distàncies a representar
+     * @param resultats    llista de distàncies a representar
      * @param idiomaOrigen codi de l'idioma central
      */
     public void pintarResultats(List<ResultatComparacio> resultats, String idiomaOrigen) {
@@ -90,12 +92,15 @@ public class PanellGraf extends JPanel {
     }
 
     /**
-     * Mètode principal de dibuix del panell. Representa nodes, arestes i etiquetes.
+     * Mètode principal de dibuix del panell. Representa nodes, arestes i
+     * etiquetes.
      */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (resultats == null || resultats.isEmpty()) return;
+        if (resultats == null || resultats.isEmpty()) {
+            return;
+        }
 
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -123,8 +128,8 @@ public class PanellGraf extends JPanel {
 
         // Distribuïm els altres idiomes circularment
         List<String> restants = noms.stream()
-            .filter(n -> !n.equals(idiomaOrigen))
-            .toList();
+                .filter(n -> !n.equals(idiomaOrigen))
+                .toList();
 
         for (int i = 0; i < restants.size(); i++) {
             double angle = 2 * Math.PI * i / restants.size();

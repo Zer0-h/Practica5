@@ -26,14 +26,16 @@ public class ProcessComparacio extends Thread {
     /**
      * Constructor que rep el controlador principal del sistema.
      *
-     * @param controlador instància que permet accedir al model i generar notificacions
+     * @param controlador instància que permet accedir al model i generar
+     *                    notificacions
      */
     public ProcessComparacio(Controlador controlador) {
         this.controlador = controlador;
     }
 
     /**
-     * Executa el fil. Carrega els idiomes seleccionats i realitza la comparació.
+     * Executa el fil. Carrega els idiomes seleccionats i realitza la
+     * comparació.
      */
     @Override
     public void run() {
@@ -41,7 +43,7 @@ public class ProcessComparacio extends Thread {
 
         // Carregam els dos idiomes seleccionats pel model
         List<Idioma> diccionaris = model.carregarDiccionaris(
-            List.of(model.getIdiomaOrigen(), model.getIdiomaDesti())
+                List.of(model.getIdiomaOrigen(), model.getIdiomaDesti())
         );
 
         // Assignam l'origen i el destí (si només n'hi ha un, es compara amb ell mateix)

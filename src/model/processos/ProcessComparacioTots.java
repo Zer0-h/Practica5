@@ -8,7 +8,8 @@ import model.Model;
 import model.ResultatComparacio;
 
 /**
- * Fil de procés que compara un idioma origen amb tots els altres idiomes disponibles.
+ * Fil de procés que compara un idioma origen amb tots els altres idiomes
+ * disponibles.
  *
  * Per cada idioma comparat, es genera un resultat que s’afegeix al model i
  * s’actualitza la visualització mitjançant notificacions successives.
@@ -25,7 +26,8 @@ public class ProcessComparacioTots extends Thread {
     /**
      * Constructor que inicialitza el procés amb el controlador del sistema.
      *
-     * @param controlador controlador MVC per accedir al model i enviar notificacions
+     * @param controlador controlador MVC per accedir al model i enviar
+     *                    notificacions
      */
     public ProcessComparacioTots(Controlador controlador) {
         this.controlador = controlador;
@@ -41,14 +43,14 @@ public class ProcessComparacioTots extends Thread {
 
         // Llista fixa d'idiomes disponibles (fitxers corresponents han d'existir)
         List<Idioma> diccionaris = model.carregarDiccionaris(
-            List.of("ale", "cat", "eng", "esp", "eus", "fra", "hol", "ita", "nor", "por", "swe")
+                List.of("ale", "cat", "eng", "esp", "eus", "fra", "hol", "ita", "nor", "por", "swe")
         );
 
         // Cercam l'idioma origen seleccionat al model
         Idioma origen = diccionaris.stream()
-            .filter(id -> id.getNom().equals(model.getIdiomaOrigen()))
-            .findFirst()
-            .orElse(null);
+                .filter(id -> id.getNom().equals(model.getIdiomaOrigen()))
+                .findFirst()
+                .orElse(null);
 
         if (origen == null) {
             System.out.println("No s'ha trobat l'idioma origen: " + model.getIdiomaOrigen());
